@@ -1,26 +1,26 @@
 # eckon.rocks
 ## Information to setup the server
 
-> build server
+> build server  
 `$ sudo go build *.go`
 
-> run server
+> run server  
 `$ sudo ./main`
 
-> open new screen
+> open new screen  
 `$ screen -S "name"`
 
-> detach screen
-cntr-a and cntr-d
+> detach screen  
+`cntr-a and cntr-d`
 
-> alternative
+> alternative  
 `$ code & disown`
 
-> see all the screens
+> see all the screens  
 `$ screen -list`
 
-> reatach screen
+> reatach screen  
 `$ screen -r "name"`
 
-> kill process on port 80 (fuck apache)
+> kill process on port 80 (fuck apache)  
 `$ sudo kill $(sudo lsof -t -i:80)`
