@@ -14,6 +14,7 @@ type pageData struct {
 type headerInfo struct {
     Title string
     Navigation []pathInfo
+    OnHomePage bool
 }
 
 type pathInfo struct {
@@ -79,12 +80,8 @@ func getHeaderInfo(req *http.Request) (h headerInfo) {
                 "/phase",
                 false,
             },
-            {
-                "Phase",
-                "/phasde",
-                false,
-            },
         },
+        OnHomePage: false,
     }
 
     for e := range h.Navigation {
@@ -94,6 +91,7 @@ func getHeaderInfo(req *http.Request) (h headerInfo) {
             return
         }
     }
+    h.OnHomePage = true
 
     return
 }
