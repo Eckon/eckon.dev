@@ -57,8 +57,12 @@ func main() {
 func handleAllFunc(r *mux.Router) {
     // index path
     r.HandleFunc("/", indexHandler).Methods("GET")
+
     // paths: /phase
     handlePhaseFunc(r)
+
+    // redirect on 404
+    r.NotFoundHandler = http.HandlerFunc(indexHandler)
 }
 
 func indexHandler(wr http.ResponseWriter, _ *http.Request) {
