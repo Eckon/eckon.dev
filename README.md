@@ -1,6 +1,16 @@
 # eckon.rocks
 ## Information to setup the server
 
+> build server
+```bash
+$ sudo go build *.go
+```
+
+> run server
+```bash
+$ sudo ./main
+```
+
 > open new screen
 ```bash
 $ screen -S "name"
