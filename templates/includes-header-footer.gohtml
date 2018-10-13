@@ -1,0 +1,19 @@
+{{ define "header" }}
+    <!doctype html>
+    <html lang="en">
+    <link rel="stylesheet" type="text/css" href="/public/css/main.css">
+    <head>
+        <meta charset="UTF-8">
+        <title>{{ .Title }}</title>
+        <link rel="icon" href="/public/favicon.ico">
+    </head>
+    <body>
+    <div id="header"><a href="/">eckon.rocks</a></div>
+    {{ template "main-nav" .Navigation }}
+{{ end }}
+
+
+{{ define "footer" }}
+    </body>
+    </html>
+{{ end }}

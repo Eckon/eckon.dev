@@ -1,0 +1,9 @@
+{{define "main-nav"}}
+    <div id="main-nav">
+        <ul>
+        {{ range $key, $value := . }}
+            <li><a href="{{ $value.Path }}">{{ $value.Title }}</a></li>
+        {{ end }}
+        </ul>
+    </div>
+{{end}}
