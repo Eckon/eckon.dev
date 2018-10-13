@@ -72,6 +72,7 @@ func handlePhaseFunc(r *mux.Router) {
 }
 
 func phaseHandler(wr http.ResponseWriter, req *http.Request) {
+    defaultHeaderInfo = updateCurrentPage(defaultHeaderInfo, req)
     game, _ = readFile(game.GameName, game)
     // Wird ausgeführt, falls ein Post vorliegt
     if req.Method == http.MethodPost {
@@ -99,7 +100,6 @@ func phaseHandler(wr http.ResponseWriter, req *http.Request) {
     }
 
     game, _ = readFile(game.GameName, game)
-    defaultHeaderInfo.Title = "Phase"
     pd := pageData{
         HeaderInfo: defaultHeaderInfo,
         Data: game,

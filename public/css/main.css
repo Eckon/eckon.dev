@@ -67,9 +67,9 @@ body {
     cursor: pointer;
 }
 
-#main-nav ul li:hover {
+#main-nav ul li:hover, .current-page {
     background: var(--main-hover-color);
-    color: var(--sec-bg-color)
+    color: var(--sec-bg-color);
 }
 
 @media (min-width: 250px) {

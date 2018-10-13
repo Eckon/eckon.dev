@@ -2,7 +2,11 @@
     <div id="main-nav">
         <ul>
         {{ range $key, $value := . }}
-            <li><div data-path="{{ $value.Path }}">{{ $value.Title }}</div></li>
+            <li {{ if $value.Current }} class="current-page" {{ end }}>
+                <div data-path="{{ $value.Path }}">
+                    {{ $value.Title }}
+                </div>
+            </li>
         {{ end }}
         </ul>
     </div>

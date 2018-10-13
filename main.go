@@ -19,14 +19,22 @@ type headerInfo struct {
 type pathInfo struct {
     Title string
     Path string
+    Current bool
 }
 
 // nav-bar information
 var defaultHeaderInfo = headerInfo{
+    Title: "eckon.rocks",
     Navigation: []pathInfo{
         {
             "Phase",
             "/phase",
+            false,
+        },
+        {
+            "Phase",
+            "/phasde",
+            false,
         },
     },
 }
@@ -65,8 +73,8 @@ func handleAllFunc(r *mux.Router) {
     r.NotFoundHandler = http.HandlerFunc(indexHandler)
 }
 
-func indexHandler(wr http.ResponseWriter, _ *http.Request) {
-    defaultHeaderInfo.Title = "Index"
+func indexHandler(wr http.ResponseWriter, req *http.Request) {
+    defaultHeaderInfo = updateCurrentPage(defaultHeaderInfo, req)
     pageData := pageData{
         HeaderInfo: defaultHeaderInfo,
     }
@@ -75,4 +83,14 @@ func indexHandler(wr http.ResponseWriter, _ *http.Request) {
         http.Error(wr, err.Error(), http.StatusInternalServerError)
         return
     }
+}
+
+func updateCurrentPage(header headerInfo, req *http.Request) (h headerInfo) {
+    h = header
+    for e := range h.Navigation {
+        // if the path is in the headerInfo -> mark it to highlight it in the front end
+        h.Navigation[e].Current = h.Navigation[e].Path == req.URL.String()
+    }
+
+    return
 }
