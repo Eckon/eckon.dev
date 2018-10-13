@@ -44,6 +44,10 @@ body {
     font-family: Verdana, Geneva, sans-serif;
 }
 
+#header #header-title.current-page a {
+    color: var(--main-hover-color);
+}
+
 #header #header-title a {
     text-decoration: none;
     color: var(--sec-color);
@@ -68,7 +72,7 @@ body {
     cursor: pointer;
 }
 
-#main-nav ul li:hover, .current-page {
+#main-nav ul li:hover, #main-nav ul .current-page {
     background: var(--main-hover-color);
     color: var(--sec-bg-color);
 }
