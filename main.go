@@ -4,6 +4,9 @@ import (
     "github.com/gorilla/mux"
     "net/http"
     "html/template"
+    "fmt"
+    "os"
+    "github.com/gorilla/handlers"
 )
 
 type pageData struct {
@@ -39,11 +42,26 @@ func main() {
     // fetch all the static data (public: js, css, etc.)
     r.PathPrefix("/public").Handler(http.StripPrefix("/public", http.FileServer(http.Dir("public"))))
 
+    // logging access logs
+    accessLog, err := os.Create("access_log.txt")
+    if err != nil {
+        panic(err)
+    }
+    defer func() {
+        if err := accessLog.Close(); err != nil {
+            panic(err)
+        }
+    }()
+
     s := http.Server{
         Addr: ":80",
-        Handler: r,
+        Handler: handlers.LoggingHandler(accessLog, r),
     }
-    s.ListenAndServe()
+
+    fmt.Println("Running")
+    if err = s.ListenAndServe(); err != nil {
+        panic(err)
+    }
 }
 
 // for ease handle all handler in this func (even from other go files)
