@@ -2,3 +2,5 @@
 !.gitignore
 /public/data/phase/*
 !public/data/phase/gameNumber
+server.exe
+access_log.txt
