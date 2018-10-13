@@ -8,7 +8,7 @@
     --main-hover-color: #ffd00e;
     --done-color: #197319;
     --danger-color: #8b0000;
-    --max-with-value: 1200px;
+    --max-width-value: 1200px;
 }
 
 /* get rid of default padding/margin */
@@ -24,7 +24,7 @@ body {
 }
 
 #body-container {
-    max-width: var(--max-with-value);
+    max-width: var(--max-width-value);
     margin: 0 auto;
     background-color: var(--white-bg-color);
     box-shadow: 0 1px 2px rgba(50, 50, 50, 0.15);
@@ -38,7 +38,7 @@ body {
 }
 
 #header #header-title {
-    max-width: var(--max-with-value);
+    max-width: var(--max-width-value);
     margin: 0 auto;
     font-weight: bold;
     font-family: Verdana, Geneva, sans-serif;
@@ -56,7 +56,7 @@ body {
 }
 
 #main-nav ul {
-    max-width: var(--max-with-value);
+    max-width: var(--max-width-value);
     margin: 0 auto;
 }
 
@@ -73,7 +73,7 @@ body {
     color: var(--sec-bg-color);
 }
 
-@media (min-width: 250px) {
+@media (min-width: 0) {
     /* add margin so that the title etc isn't at the edge of the screen */
     #body-container, #header #header-title {
         margin: 0 15px 0 15px;
