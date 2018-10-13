@@ -1,19 +1,24 @@
 {{ define "header" }}
     <!doctype html>
     <html lang="en">
-    <link rel="stylesheet" type="text/css" href="/public/css/main.css">
-    <head>
-        <meta charset="UTF-8">
-        <title>{{ .Title }}</title>
-        <link rel="icon" href="/public/favicon.ico">
-    </head>
-    <body>
-    <div id="header"><a href="/">eckon.rocks</a></div>
-    {{ template "main-nav" .Navigation }}
+        <link rel="stylesheet" type="text/css" href="/public/css/main.css">
+        <head>
+            <meta charset="UTF-8">
+            <title>{{ .Title }}</title>
+            <link rel="icon" href="/public/favicon.ico">
+        </head>
+        <body>
+            <div id="header">
+                <div id="header-title"><a href="/">eckon.rocks</a></div>
+            </div>
+            {{ template "main-nav" .Navigation }}
+            <div id="body-container">
 {{ end }}
 
 
 {{ define "footer" }}
-    </body>
+            </div>
+            <script src="/public/js/main.js"></script>
+        </body>
     </html>
 {{ end }}

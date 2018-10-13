@@ -2,7 +2,7 @@
     <div id="main-nav">
         <ul>
         {{ range $key, $value := . }}
-            <li><a href="{{ $value.Path }}">{{ $value.Title }}</a></li>
+            <li><div data-path="{{ $value.Path }}">{{ $value.Title }}</div></li>
         {{ end }}
         </ul>
     </div>
