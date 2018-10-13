@@ -1,0 +1,95 @@
+{{template "header" .HeaderInfo}}
+
+<link rel="stylesheet" href="/public/css/phase.css">
+    <style>
+    /* DISABLE BUTTONS */
+    {{if not .Data.Player1.CanCompleteLevel}}
+        .level1 {
+            background: var(--done-color);
+            pointer-events:none;
+        }
+    {{end}}
+    {{if not .Data.Player2.CanCompleteLevel}}
+        .level2 {
+              background: var(--done-color);
+              pointer-events:none;
+        }
+    {{end}}
+    {{if not .Data.Player3.CanCompleteLevel}}
+        .level3 {
+          background: var(--done-color);
+          pointer-events:none;
+        }
+    {{end}}
+    {{if not .Data.Player4.CanCompleteLevel}}
+        .level4 {
+          background: var(--done-color);
+          pointer-events:none;
+        }
+    {{end}}
+    </style>
+
+    <div class="grid-container">
+
+        <div class="game">{{.Data.GameName}}. Spiel</div>
+        
+        <div class="names">
+            <div class="name">{{.Data.Player1.Name}}</div>
+            <div class="name">{{.Data.Player2.Name}}</div>
+            <div class="name">{{.Data.Player3.Name}}</div>
+            <div class="name">{{.Data.Player4.Name}}</div>
+        </div>
+        
+        <form action="/phase" method="post" name="level" class="pure-form">
+            <div class="grid-container-level">
+                <input type="submit" name="level1" class="level1 pure-button" value="{{.Data.Player1.Level}}">
+                <input type="submit" name="level2" class="level2 pure-button" value="{{.Data.Player2.Level}}">
+                <input type="submit" name="level3" class="level3 pure-button" value="{{.Data.Player3.Level}}">
+                <input type="submit" name="level4" class="level4 pure-button" value="{{.Data.Player4.Level}}">
+            </div>
+        </form>
+
+        <div class="points">
+            <div class="point">{{.Data.Player1.Points}}</div>
+            <div class="point">{{.Data.Player2.Points}}</div>
+            <div class="point">{{.Data.Player3.Points}}</div>
+            <div class="point">{{.Data.Player4.Points}}</div>
+        </div>
+
+        <div class="grid-container-all-points">
+            <form action="/phase" method="post" name="points" class="pure-form">
+                <div class="grid-container-points">
+                    <input type="text" name="points1">
+                    <input type="text" name="points2">
+                    <input type="text" name="points3">
+                    <input type="text" name="points4">
+                </div>
+                <div class="grid-container-submit">
+                    <input type="submit" value="Nächste Runde" class="pure-button">
+                </div>
+            </form>
+        </div>
+        <main id='main' class='main_area'>
+            <label class="pure-button" for="dialog_state">Neues Spiel</label>
+        </main>
+    </div>
+    <input type="checkbox" name="dialog_state" id="dialog_state" class="dialog_state">
+
+    <!-- Modal -->
+    <div id='dialog'>
+        <label id="dlg-back" for="dialog_state"></label>
+        <div id='dlg-wrap'>
+            <label id="dlg-close" for="dialog_state"></label>
+            <h2 id='dlg-header'>Bist du dir sicher?</h2>
+            <div id='dlg-content'>Das vorherige Spiel wird beendet und ein neues angegeben.</div>
+            <div id='dlg-prompt'>
+                <div class="grid-container-reset">
+                    <form action="/phase/reset" method="post">
+                        <input type="submit" value="Neues Spiel" class="pure-button">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{{template "footer"}}
