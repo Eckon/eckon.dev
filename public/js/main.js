@@ -2,7 +2,7 @@
 (function () {
     let items = document.querySelector('#main-nav').querySelectorAll('div');
     items.forEach((ele) => {
-        ele.addEventListener('click', () => {
+        ele.parentNode.addEventListener('click', () => {
             window.location.href = ele.dataset.path;
         })
     })
