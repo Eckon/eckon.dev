@@ -22,23 +22,6 @@ type pathInfo struct {
     Current bool
 }
 
-// nav-bar information
-var defaultHeaderInfo = headerInfo{
-    Title: "eckon.rocks",
-    Navigation: []pathInfo{
-        {
-            "Phase",
-            "/phase",
-            false,
-        },
-        {
-            "Phase",
-            "/phasde",
-            false,
-        },
-    },
-}
-
 var tpl *template.Template
 
 func init() {
@@ -62,6 +45,7 @@ func main() {
     s.ListenAndServe()
 }
 
+// for ease handle all handler in this func (even from other go files)
 func handleAllFunc(r *mux.Router) {
     // index path
     r.HandleFunc("/", indexHandler).Methods("GET")
@@ -74,9 +58,8 @@ func handleAllFunc(r *mux.Router) {
 }
 
 func indexHandler(wr http.ResponseWriter, req *http.Request) {
-    defaultHeaderInfo = updateCurrentPage(defaultHeaderInfo, req)
     pageData := pageData{
-        HeaderInfo: defaultHeaderInfo,
+        HeaderInfo: getHeaderInfo(req),
     }
     err := tpl.ExecuteTemplate(wr, "index.gohtml", pageData)
     if err != nil {
@@ -85,11 +68,31 @@ func indexHandler(wr http.ResponseWriter, req *http.Request) {
     }
 }
 
-func updateCurrentPage(header headerInfo, req *http.Request) (h headerInfo) {
-    h = header
+// build the headerInfo so we can use it everywhere and only have one place to edit it
+func getHeaderInfo(req *http.Request) (h headerInfo) {
+    // nav-bar information
+    h = headerInfo{
+        Title: "eckon.rocks",
+        Navigation: []pathInfo{
+            {
+                "Phase",
+                "/phase",
+                false,
+            },
+            {
+                "Phase",
+                "/phasde",
+                false,
+            },
+        },
+    }
+
     for e := range h.Navigation {
         // if the path is in the headerInfo -> mark it to highlight it in the front end
-        h.Navigation[e].Current = h.Navigation[e].Path == req.URL.String()
+        if h.Navigation[e].Path == req.URL.String() {
+            h.Navigation[e].Current = true
+            return
+        }
     }
 
     return
