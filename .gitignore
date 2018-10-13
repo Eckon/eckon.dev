@@ -1,5 +1,4 @@
 .*
 !.gitignore
-/public/data/phase/*
 access_log.txt
 server.exe
