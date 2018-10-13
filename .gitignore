@@ -1,6 +1,5 @@
 .*
 !.gitignore
 /public/data/phase/*
-!public/data/phase/gameNumber
 access_log.txt
 server.exe
