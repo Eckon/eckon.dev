@@ -44,9 +44,8 @@
 }
 
 .grid-container {
-    background-color: var(--main-bg-color);
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 15px;
+    padding-bottom: 25px;
 }
 
 input {
@@ -62,27 +61,11 @@ input {
     }
 }
 
-/* Tablet */
-@media (min-width: 500px) {
-    .grid-container {
-        padding-left: 10%;
-        padding-right: 10%;
-    }
-}
-
 /* Desktop - Normal */
 @media (min-width: 1000px) {
     .grid-container {
-        padding-left: 20%;
-        padding-right: 20%;
-    }
-}
-
-/* Desktop - Big */
-@media (min-width: 1500px) {
-    .grid-container {
-        padding-left: 25%;
-        padding-right: 25%;
+        padding-left: 15%;
+        padding-right: 15%;
     }
 }
 
@@ -98,8 +81,7 @@ Zu Faul eigenes Modal zu schreiben -> Shit Code von random typen
     top: 0;
     left: 0;
     width: 100%;
-    width: 100vw;
-    height: 100vh;
+    height: 100%;
     background: rgba(0, 0, 0, 0.15);
     transition: visibility 0s linear 0.5s, opacity 0.5s linear;
     opacity: 0;
@@ -124,8 +106,7 @@ Zu Faul eigenes Modal zu schreiben -> Shit Code von random typen
     top: 0;
     left: 0;
     width: 100%;
-    width: 100vw;
-    height: 100vh;
+    height: 100%;
     cursor: pointer;
 }
 

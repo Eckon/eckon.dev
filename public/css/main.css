@@ -1,4 +1,5 @@
 :root {
+    --white-bg-color: #fff;
     --main-bg-color: #f5f5f5;
     --sec-bg-color: #343838;
     --third-bg-color: #008ecc;
@@ -7,8 +8,10 @@
     --main-hover-color: #ffd00e;
     --done-color: #197319;
     --danger-color: #8b0000;
+    --max-with-value: 1200px;
 }
 
+/* get rid of default padding/margin */
 * {
     padding: 0;
     margin: 0;
@@ -20,36 +23,65 @@ body {
     font-family: "Open Sans", sans-serif, Verdana, Geneva;
 }
 
+#body-container {
+    max-width: var(--max-with-value);
+    margin: 0 auto;
+    background-color: var(--white-bg-color);
+    box-shadow: 0 1px 2px rgba(50, 50, 50, 0.15);
+}
+
 #header {
-    padding: 10px 0 10px 0;
+    padding: 5px 0 10px 0;
+    font-size: 30px;
     background: var(--sec-bg-color);
 }
 
-#header a {
-    text-decoration: none;
-    color: var(--sec-color);
+#header #header-title {
+    max-width: var(--max-with-value);
+    margin: 0 auto;
     font-weight: bold;
     font-family: Verdana, Geneva, sans-serif;
 }
 
-#main-nav {
-    background: var(--third-bg-color);
-}
-
-#main-nav a {
+#header #header-title a {
     text-decoration: none;
     color: var(--sec-color);
 }
 
+#main-nav {
+    background: var(--third-bg-color);
+    color: var(--sec-color);
+    margin-bottom: 25px;
+}
+
+#main-nav ul {
+    max-width: var(--max-with-value);
+    margin: 0 auto;
+}
+
 #main-nav ul li {
+    display: inline-block;
     list-style: none;
-    width: 160px;
     text-align: center;
-    padding: 10px 0 10px 0;
+    padding: 10px 15px 10px 15px;
     cursor: pointer;
 }
 
 #main-nav ul li:hover {
     background: var(--main-hover-color);
     color: var(--sec-bg-color)
+}
+
+@media (min-width: 250px) {
+    /* add margin so that the title etc isn't at the edge of the screen */
+    #main-nav ul, #body-container, #header #header-title {
+        margin: 0 15px 0 15px;
+    }
+}
+
+@media (min-width: 1250px) {
+    /* overwrite margin when we are over the 1200px */
+    #main-nav ul, #body-container, #header #header-title {
+        margin: 0 auto;
+    }
 }
