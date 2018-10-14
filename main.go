@@ -11,18 +11,18 @@ import (
 
 type pageData struct {
     HeaderInfo headerInfo
-    Data interface{}
+    Data       interface{}
 }
 
 type headerInfo struct {
-    Title string
+    Title      string
     Navigation []pathInfo
     OnHomePage bool
 }
 
 type pathInfo struct {
-    Title string
-    Path string
+    Title   string
+    Path    string
     Current bool
 }
 
@@ -38,7 +38,6 @@ func main() {
 
     // setup the routes from all places
     handleAllFunc(r)
-
     // fetch all the static data (public: js, css, etc.)
     r.PathPrefix("/public").Handler(http.StripPrefix("/public", http.FileServer(http.Dir("public"))))
 
@@ -54,7 +53,7 @@ func main() {
     }()
 
     s := http.Server{
-        Addr: ":80",
+        Addr:    ":80",
         Handler: handlers.LoggingHandler(accessLog, r),
     }
 
@@ -68,10 +67,8 @@ func main() {
 func handleAllFunc(r *mux.Router) {
     // index path
     r.HandleFunc("/", indexHandler).Methods("GET")
-
-    // paths: /phase
+    // paths: /phase (in phase.go)
     handlePhaseFunc(r)
-
     // redirect on 404
     r.NotFoundHandler = http.HandlerFunc(indexHandler)
 }
@@ -80,8 +77,7 @@ func indexHandler(wr http.ResponseWriter, req *http.Request) {
     pageData := pageData{
         HeaderInfo: getHeaderInfo(req),
     }
-    err := tpl.ExecuteTemplate(wr, "index.gohtml", pageData)
-    if err != nil {
+    if err := tpl.ExecuteTemplate(wr, "index.gohtml", pageData); err != nil {
         http.Error(wr, err.Error(), http.StatusInternalServerError)
         return
     }
@@ -109,6 +105,7 @@ func getHeaderInfo(req *http.Request) (h headerInfo) {
             return
         }
     }
+    // if no highlight -> it's on the home page
     h.OnHomePage = true
 
     return

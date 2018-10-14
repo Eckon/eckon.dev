@@ -1,60 +1,62 @@
-{{template "header" .HeaderInfo}}
+<!-- OLD SHIT CODE --- REFACTOR ASAP -->
+
+{{ template "header" .HeaderInfo }}
 
 <link rel="stylesheet" href="/public/css/phase.css">
 <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
     <style>
     /* DISABLE BUTTONS */
-    {{if not .Data.Player1.CanCompleteLevel}}
+    {{ if not .Data.Player1.CanCompleteLevel }}
         .level1 {
             background: var(--done-color);
             pointer-events:none;
         }
-    {{end}}
-    {{if not .Data.Player2.CanCompleteLevel}}
+    {{ end }}
+    {{ if not .Data.Player2.CanCompleteLevel }}
         .level2 {
               background: var(--done-color);
               pointer-events:none;
         }
-    {{end}}
-    {{if not .Data.Player3.CanCompleteLevel}}
+    {{ end }}
+    {{ if not .Data.Player3.CanCompleteLevel }}
         .level3 {
           background: var(--done-color);
           pointer-events:none;
         }
-    {{end}}
-    {{if not .Data.Player4.CanCompleteLevel}}
+    {{ end }}
+    {{ if not .Data.Player4.CanCompleteLevel }}
         .level4 {
           background: var(--done-color);
           pointer-events:none;
         }
-    {{end}}
+    {{ end }}
     </style>
 
     <div class="grid-container">
 
-        <div class="game">{{.Data.GameName}}. Spiel</div>
+        <div class="game">{{ .Data.GameName }}. Spiel</div>
         
         <div class="names">
-            <div class="name">{{.Data.Player1.Name}}</div>
-            <div class="name">{{.Data.Player2.Name}}</div>
-            <div class="name">{{.Data.Player3.Name}}</div>
-            <div class="name">{{.Data.Player4.Name}}</div>
+            <div class="name">{{ .Data.Player1.Name }}</div>
+            <div class="name">{{ .Data.Player2.Name }}</div>
+            <div class="name">{{ .Data.Player3.Name }}</div>
+            <div class="name">{{ .Data.Player4.Name }}</div>
         </div>
         
         <form action="/phase" method="post" name="level" class="pure-form">
             <div class="grid-container-level">
-                <input type="submit" name="level1" class="level1 pure-button" value="{{.Data.Player1.Level}}">
-                <input type="submit" name="level2" class="level2 pure-button" value="{{.Data.Player2.Level}}">
-                <input type="submit" name="level3" class="level3 pure-button" value="{{.Data.Player3.Level}}">
-                <input type="submit" name="level4" class="level4 pure-button" value="{{.Data.Player4.Level}}">
+                <input type="submit" name="level1" class="level1 pure-button" value="{{ .Data.Player1.Level }}">
+                <input type="submit" name="level2" class="level2 pure-button" value="{{ .Data.Player2.Level }}">
+                <input type="submit" name="level3" class="level3 pure-button" value="{{ .Data.Player3.Level }}">
+                <input type="submit" name="level4" class="level4 pure-button" value="{{ .Data.Player4.Level }}">
             </div>
         </form>
 
         <div class="points">
-            <div class="point">{{.Data.Player1.Points}}</div>
-            <div class="point">{{.Data.Player2.Points}}</div>
-            <div class="point">{{.Data.Player3.Points}}</div>
-            <div class="point">{{.Data.Player4.Points}}</div>
+            <div class="point">{{ .Data.Player1.Points }}</div>
+            <div class="point">{{ .Data.Player2.Points }}</div>
+            <div class="point">{{ .Data.Player3.Points }}</div>
+            <div class="point">{{ .Data.Player4.Points }}</div>
         </div>
 
         <div class="grid-container-all-points">
@@ -93,4 +95,4 @@
         </div>
     </div>
 
-{{template "footer"}}
+{{ template "footer" }}

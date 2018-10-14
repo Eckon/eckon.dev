@@ -87,6 +87,7 @@ body {
     #main-nav ul li {
         display: block;
     }
+
     #main-nav {
         display: none;
         position: absolute;
@@ -94,6 +95,7 @@ body {
         width: 100%;
 
     }
+
     #small-nav-header {
         display: block;
         background: var(--third-bg-color);
@@ -110,12 +112,14 @@ body {
     #main-nav ul li {
         display: inline-block;
     }
+
     #main-nav {
         /* don't like it but js has a higher priority so !important or an extra js listener -> !important */
         display: block !important;
         position: relative;
         z-index: unset;
     }
+
     #small-nav-header {
         display: none;
     }

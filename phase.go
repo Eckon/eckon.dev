@@ -1,15 +1,19 @@
 package main
 
 import (
+    "fmt"
+    "os"
+    "github.com/gorilla/mux"
     "net/http"
     "regexp"
-    "os"
-    "strconv"
     "io/ioutil"
     "encoding/json"
-    "fmt"
-    "github.com/gorilla/mux"
+    "strconv"
 )
+
+/////////////////////////////////////
+/* OLD SHIT CODE --- REFACTOR ASAP */
+/////////////////////////////////////
 
 type gameData struct {
     Player1 personData
