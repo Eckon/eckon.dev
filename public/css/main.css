@@ -25,7 +25,6 @@ body {
 
 #body-container {
     max-width: var(--max-width-value);
-    margin: 0 auto;
     background-color: var(--white-bg-color);
     box-shadow: 0 1px 2px rgba(50, 50, 50, 0.15);
     position: relative;
@@ -56,7 +55,6 @@ body {
 #main-nav {
     background: var(--third-bg-color);
     color: var(--sec-color);
-    margin-bottom: 25px;
 }
 
 #main-nav ul {
@@ -79,8 +77,12 @@ body {
 
 @media (min-width: 0) {
     /* add margin so that the title etc isn't at the edge of the screen */
-    #body-container, #header #header-title {
+    #header #header-title {
         margin: 0 15px 0 15px;
+    }
+
+    #body-container {
+        margin: 15px 15px 0 15px;;
     }
 
     /* when screen too small -> make nav items stack under instead of next to each other and hide it */
@@ -127,7 +129,11 @@ body {
 
 @media (min-width: 1250px) {
     /* overwrite margin when we are over the 1200px */
-    #main-nav ul, #body-container, #header #header-title {
+    #main-nav ul, #header #header-title {
         margin: 0 auto;
+    }
+
+    #body-container {
+        margin: 25px auto;
     }
 }
