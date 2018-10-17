@@ -15,5 +15,8 @@
     nav.addEventListener('click', () => {
         const s = document.querySelector('#main-nav').style;
         s.display = s.display === 'block' ? 'none' : 'block';
+
+        // highlight the menu bars
+        nav.classList.toggle('highlighted-content');
     });
 })();

@@ -10,8 +10,13 @@
         </head>
         <body>
             <div id="header">
-                <div id="header-title" {{ if .OnHomePage}} class="current-page" {{ end }}>
+                <div id="header-title" {{ if .OnHomePage}} class="highlighted-content" {{ end }}>
                     <a href="/">eckon.rocks</a>
+                    <div id="small-nav-header">
+                        <div class="menu-bar"></div>
+                        <div class="menu-bar"></div>
+                        <div class="menu-bar"></div>
+                    </div>
                 </div>
             </div>
             {{ template "main-nav" .Navigation }}

@@ -1,9 +1,8 @@
 {{ define "main-nav" }}
-    <div id="small-nav-header">Navigation</div>
     <div id="main-nav">
         <ul>
         {{ range $key, $value := . }}
-            <li {{ if $value.Current }} class="current-page" {{ end }}>
+            <li {{ if $value.Current }} class="highlighted-content" {{ end }}>
                 <div data-path="{{ $value.Path }}">
                     {{ $value.Title }}
                 </div>

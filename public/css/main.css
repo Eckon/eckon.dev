@@ -1,14 +1,10 @@
 :root {
-    --white-bg-color: #fff;
-    --main-bg-color: #f5f5f5;
-    --sec-bg-color: #343838;
-    --third-bg-color: #008ecc;
-    --main-color: #000;
-    --sec-color: #fff;
-    --main-hover-color: #ffd00e;
-    --done-color: #197319;
+    --first-theme-color: #343838;
+    --sec-theme-color: #ffd00e;
+    --success-color: #197319;
     --danger-color: #8b0000;
     --max-width-value: 1200px;
+    --shadow-style: 0 1px 2px rgba(50, 50, 50, 0.15);
 }
 
 /* get rid of default padding/margin */
@@ -18,22 +14,22 @@
 }
 
 body {
-    color: var(--main-color);
-    background: var(--main-bg-color);
+    color: #000;
+    background: #f5f5f5;
     font-family: "Open Sans", sans-serif, Verdana, Geneva;
 }
 
 #body-container {
     max-width: var(--max-width-value);
-    background-color: var(--white-bg-color);
-    box-shadow: 0 1px 2px rgba(50, 50, 50, 0.15);
+    background-color: #fff;
+    box-shadow: var(--shadow-style);
     position: relative;
 }
 
 #header {
     padding: 5px 0 10px 0;
     font-size: 30px;
-    background: var(--sec-bg-color);
+    background: var(--first-theme-color);
 }
 
 #header #header-title {
@@ -43,18 +39,23 @@ body {
     font-family: Verdana, Geneva, sans-serif;
 }
 
-#header #header-title.current-page a {
-    color: var(--main-hover-color);
+#header #header-title.highlighted-content a {
+    color: var(--sec-theme-color);
 }
 
 #header #header-title a {
     text-decoration: none;
-    color: var(--sec-color);
+    color: #fff;
+}
+
+#header #header-title a:hover {
+    color: var(--sec-theme-color);
 }
 
 #main-nav {
-    background: var(--third-bg-color);
-    color: var(--sec-color);
+    background: #fff;
+    color: #000;
+    box-shadow: var(--shadow-style);
 }
 
 #main-nav ul {
@@ -70,9 +71,9 @@ body {
     cursor: pointer;
 }
 
-#main-nav ul li:hover, #main-nav ul .current-page {
-    background: var(--main-hover-color);
-    color: var(--sec-bg-color);
+#main-nav ul li:hover, #main-nav ul .highlighted-content {
+    background: var(--first-theme-color);
+    color: var(--sec-theme-color);
 }
 
 @media (min-width: 0) {
@@ -99,13 +100,20 @@ body {
     }
 
     #small-nav-header {
-        display: block;
-        background: var(--third-bg-color);
-        color: var(--sec-color);
-        padding: 20px 0 20px 0;
-        text-align: center;
         cursor: pointer;
-        font-weight: bold;
+        float: right;
+    }
+
+    #small-nav-header.highlighted-content .menu-bar{
+        background: var(--sec-theme-color);
+    }
+
+    .menu-bar {
+        background: #fff;
+        width: 30px;
+        height: 4px;
+        margin: 7px 0;
+        border-radius: 20px;
     }
 }
 
