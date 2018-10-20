@@ -43,30 +43,9 @@
     background-color: var(--danger-color);
 }
 
-.grid-container {
-    padding-top: 15px;
-    padding-bottom: 25px;
-}
-
 input {
     overflow: hidden;
     text-align: center;
-}
-
-/* Mobile */
-@media (min-width: 250px) {
-    .grid-container {
-        padding-left: 5%;
-        padding-right: 5%;
-    }
-}
-
-/* Desktop - Normal */
-@media (min-width: 1000px) {
-    .grid-container {
-        padding-left: 15%;
-        padding-right: 15%;
-    }
 }
 
 /* MODAL */
