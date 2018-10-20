@@ -78,7 +78,8 @@ func handlePhaseFunc(r *mux.Router) {
 func phaseHandler(wr http.ResponseWriter, req *http.Request) {
     game, _ = readFile(game.GameName, game)
     // Wird ausgeführt, falls ein Post vorliegt
-    if req.Method == http.MethodPost {
+    // check if the user is logged in
+    if checkLoginStatus(req) && req.Method == http.MethodPost {
         // Muss ausgeführt werden um die Post-Daten zu bekommen
         err := req.ParseForm()
         if err != nil {
@@ -116,10 +117,13 @@ func phaseHandler(wr http.ResponseWriter, req *http.Request) {
 }
 
 func resetHandler(wr http.ResponseWriter, req *http.Request)  {
-    // Erhöhung der Spielnummer, und diese dem Template für das neue Spiel übergeben
-    game.GameName = increaseGameNumber()
-    gameDataTemplate.GameName = game.GameName
-    writeFile(game.GameName, gameDataTemplate, os.ModeAppend)
+    // check if the user is logged in
+    if checkLoginStatus(req) {
+        // Erhöhung der Spielnummer, und diese dem Template für das neue Spiel übergeben
+        game.GameName = increaseGameNumber()
+        gameDataTemplate.GameName = game.GameName
+        writeFile(game.GameName, gameDataTemplate, os.ModeAppend)
+    }
     http.Redirect(wr, req, "/phase", 301)
 }
 

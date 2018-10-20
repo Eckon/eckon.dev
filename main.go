@@ -69,8 +69,8 @@ func handleAllFunc(r *mux.Router) {
     r.HandleFunc("/", indexHandler).Methods("GET")
     // paths: /phase (in phase.go)
     handlePhaseFunc(r)
-    // paths: /login (in login.go)
-    handleLoginFunc(r)
+    // paths: /authentication (in authentication.go)
+    handleAuthenticationFunc(r)
     // redirect on 404
     r.NotFoundHandler = http.HandlerFunc(indexHandler)
 }
@@ -87,6 +87,12 @@ func indexHandler(wr http.ResponseWriter, req *http.Request) {
 
 // build the headerInfo so we can use it everywhere and only have one place to edit it
 func getHeaderInfo(req *http.Request) (h headerInfo) {
+    // update the title if the user is already logged in
+    status := pathInfo{"Login", "/authentication",false}
+    if checkLoginStatus(req) {
+        status.Title = "Logout"
+    }
+
     // nav-bar information
     h = headerInfo{
         Title: "eckon.rocks",
@@ -96,11 +102,7 @@ func getHeaderInfo(req *http.Request) (h headerInfo) {
                 "/phase",
                 false,
             },
-            {
-                "Login",
-                "/login",
-                false,
-            },
+            status,
         },
         OnHomePage: false,
     }

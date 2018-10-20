@@ -9,12 +9,20 @@ import (
 // global variable so we can check it everywhere
 var store = sessions.NewCookieStore([]byte("LOGIN_KEY"))
 
-func handleLoginFunc(r *mux.Router) {
-    r.HandleFunc("/login", handleLoginPage).Methods("GET")
-    r.HandleFunc("/login", handleLoginAttempt).Methods("POST")
+func handleAuthenticationFunc(r *mux.Router) {
+    r.HandleFunc("/authentication", handleLoginPage).Methods("GET")
+    r.HandleFunc("/authentication/login", handleLoginAttempt).Methods("POST")
 }
 
 func handleLoginPage(wr http.ResponseWriter, req *http.Request) {
+    if checkLoginStatus(req) {
+        // log out if we visit the login site again (while being logged in)
+        session, _:= store.Get(req, "session")
+        session.Values["status"] = "out"
+        session.Save(req, wr)
+        http.Redirect(wr, req, "/", http.StatusSeeOther)
+    }
+
     pageData := pageData{
         HeaderInfo: getHeaderInfo(req),
     }
@@ -26,17 +34,16 @@ func handleLoginPage(wr http.ResponseWriter, req *http.Request) {
 
 func handleLoginAttempt(wr http.ResponseWriter, req *http.Request) {
     req.ParseForm()
+    session, _:= store.Get(req, "session")
 
     // just for only one user (later maybe more with database and general checking)
     if req.Form["name"][0] == "eckon" && req.Form["password"][0] == "123" {
-
-        session, _:= store.Get(req, "session")
         // safe the status of the one user
         session.Values["status"] = "in"
         session.Save(req, wr)
         http.Redirect(wr, req, "/", http.StatusSeeOther)
     } else {
-        http.Redirect(wr, req, "/login", http.StatusSeeOther)
+        http.Redirect(wr, req, "/authentication", http.StatusSeeOther)
     }
 }
 
