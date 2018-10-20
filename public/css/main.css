@@ -24,6 +24,7 @@ body {
     background-color: #fff;
     box-shadow: var(--shadow-style);
     position: relative;
+    padding: 20px;
 }
 
 #header {
