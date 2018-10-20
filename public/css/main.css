@@ -122,6 +122,9 @@ body {
 
     .authentication {
         float: none;
+        background: var(--first-theme-color);
+        color: #fff;
+        font-weight: bold;
     }
 }
 

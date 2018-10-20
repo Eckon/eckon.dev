@@ -1,34 +1,34 @@
 {{ define "header" }}
-    <!doctype html>
-    <html lang="en">
-        <head>
-            <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, initial-scale=1.0" />
-            <meta charset="UTF-8">
-            <title>{{ .Title }}</title>
-            <link rel="stylesheet" type="text/css" href="/public/css/main.css">
-            <link rel="icon" href="/public/favicon.ico">
-        </head>
-        <body>
-            <div id="header">
-                <div id="header-title" {{ if .OnHomePage}} class="highlighted-content" {{ end }}>
-                    <a href="/">eckon.rocks</a>
-                    <div id="small-nav-header">
-                        <div class="menu-bar"></div>
-                        <div class="menu-bar"></div>
-                        <div class="menu-bar"></div>
-                    </div>
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, initial-scale=1.0" />
+        <meta charset="UTF-8">
+        <title>{{ .Title }}</title>
+        <link rel="stylesheet" type="text/css" href="/public/css/main.css">
+        <link rel="icon" href="/public/favicon.ico">
+    </head>
+    <body>
+        <div id="header">
+            <div id="header-title" {{ if .OnHomePage}} class="highlighted-content" {{ end }}>
+                <a href="/">eckon.rocks</a>
+                <div id="small-nav-header">
+                    <div class="menu-bar"></div>
+                    <div class="menu-bar"></div>
+                    <div class="menu-bar"></div>
                 </div>
             </div>
-            {{ template "main-nav" .Navigation }}
-            <div id="body-container">
-                <div id="body">
+        </div>
+        {{ template "main-nav" .Navigation }}
+<div id="body-container">
+    <div id="body">
 {{ end }}
 
 
 {{ define "footer" }}
-                </div>
-            </div>
-            <script src="/public/js/main.js"></script>
-        </body>
-    </html>
+    </div>
+</div>
+<script src="/public/js/main.js"></script>
+</body>
+</html>
 {{ end }}

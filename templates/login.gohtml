@@ -1,13 +1,13 @@
 {{ template "header" .HeaderInfo }}
-    <link rel="stylesheet" href="/public/css/login.css">
-    <form action="/authentication/login" method="post">
-        <label for="name-form">Name:</label>
-        <input type="text" id="name-form" name="name"
-               autocomplete="off" required placeholder="Name">
-        <label for="password-form">Password:</label>
-        <input type="password" id="password-form" name="password"
-               autocomplete="off" required placeholder="Password">
+<link rel="stylesheet" href="/public/css/login.css">
+<form action="/authentication/login" method="post">
+    <label for="name-form">Name:</label>
+    <input type="text" id="name-form" name="name"
+           autocomplete="off" required placeholder="Name">
+    <label for="password-form">Password:</label>
+    <input type="password" id="password-form" name="password"
+           autocomplete="off" required placeholder="Password">
 
-        <input type="submit" value="Submit">
-    </form>
+    <input type="submit" value="Submit">
+</form>
 {{ template "footer" }}

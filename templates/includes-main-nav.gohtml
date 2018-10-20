@@ -1,13 +1,13 @@
 {{ define "main-nav" }}
-    <div id="main-nav">
-        <ul>
-        {{ range $key, $value := . }}
-            <li class="{{ $value.Class }}">
-                <div data-path="{{ $value.Path }}">
-                    {{ $value.Title }}
-                </div>
-            </li>
-        {{ end }}
-        </ul>
-    </div>
+<div id="main-nav">
+    <ul>
+    {{ range $key, $value := . }}
+        <li class="{{ $value.Class }}">
+            <div data-path="{{ $value.Path }}">
+                {{ $value.Title }}
+            </div>
+        </li>
+    {{ end }}
+    </ul>
+</div>
 {{ end }}
