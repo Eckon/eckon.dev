@@ -23,7 +23,7 @@ type headerInfo struct {
 type pathInfo struct {
     Title   string
     Path    string
-    Current bool
+    Class   string
 }
 
 var tpl *template.Template
@@ -88,7 +88,7 @@ func indexHandler(wr http.ResponseWriter, req *http.Request) {
 // build the headerInfo so we can use it everywhere and only have one place to edit it
 func getHeaderInfo(req *http.Request) (h headerInfo) {
     // update the title if the user is already logged in
-    status := pathInfo{"Login", "/authentication",false}
+    status := pathInfo{"Login", "/authentication", "authentication"}
     if checkLoginStatus(req) {
         status.Title = "Logout"
     }
@@ -100,7 +100,7 @@ func getHeaderInfo(req *http.Request) (h headerInfo) {
             {
                 "Phase",
                 "/phase",
-                false,
+                "",
             },
             status,
         },
@@ -108,9 +108,9 @@ func getHeaderInfo(req *http.Request) (h headerInfo) {
     }
 
     for e := range h.Navigation {
-        // if the path is in the headerInfo -> mark it to highlight it in the front end
+        // if the path is in the headerInfo -> mark it to highlight it in the front end (append class list)
         if h.Navigation[e].Path == req.URL.String() {
-            h.Navigation[e].Current = true
+            h.Navigation[e].Class += " highlighted-content"
             return
         }
     }
