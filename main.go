@@ -69,6 +69,8 @@ func handleAllFunc(r *mux.Router) {
     r.HandleFunc("/", indexHandler).Methods("GET")
     // paths: /phase (in phase.go)
     handlePhaseFunc(r)
+    // paths: /login (in login.go)
+    handleLoginFunc(r)
     // redirect on 404
     r.NotFoundHandler = http.HandlerFunc(indexHandler)
 }
@@ -92,6 +94,11 @@ func getHeaderInfo(req *http.Request) (h headerInfo) {
             {
                 "Phase",
                 "/phase",
+                false,
+            },
+            {
+                "Login",
+                "/login",
                 false,
             },
         },

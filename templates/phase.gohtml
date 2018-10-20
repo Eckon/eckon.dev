@@ -8,25 +8,25 @@
     /* DISABLE BUTTONS */
     {{ if not .Data.Player1.CanCompleteLevel }}
         .level1 {
-            background: var(--done-color);
+            background: var(--success-color);
             pointer-events:none;
         }
     {{ end }}
     {{ if not .Data.Player2.CanCompleteLevel }}
         .level2 {
-              background: var(--done-color);
+              background: var(--success-color);
               pointer-events:none;
         }
     {{ end }}
     {{ if not .Data.Player3.CanCompleteLevel }}
         .level3 {
-          background: var(--done-color);
+          background: var(--success-color);
           pointer-events:none;
         }
     {{ end }}
     {{ if not .Data.Player4.CanCompleteLevel }}
         .level4 {
-          background: var(--done-color);
+          background: var(--success-color);
           pointer-events:none;
         }
     {{ end }}
@@ -62,10 +62,10 @@
         <div class="grid-container-all-points">
             <form action="/phase" method="post" name="points" class="pure-form">
                 <div class="grid-container-points">
-                    <input type="text" name="points1" autocomplete="false">
-                    <input type="text" name="points2" autocomplete="false">
-                    <input type="text" name="points3" autocomplete="false">
-                    <input type="text" name="points4" autocomplete="false">
+                    <input type="text" name="points1" autocomplete="off">
+                    <input type="text" name="points2" autocomplete="off">
+                    <input type="text" name="points3" autocomplete="off">
+                    <input type="text" name="points4" autocomplete="off">
                 </div>
                 <div class="grid-container-submit">
                     <input type="submit" value="Nächste Runde" class="pure-button">
