@@ -55,7 +55,7 @@ func main() {
     // start go routine to redirect every port 80 (http) to 443 (https)
     go func() {
        http.ListenAndServe(":80", http.HandlerFunc(func(wr http.ResponseWriter, req *http.Request) {
-           http.Redirect(wr, req, "https://IPAddr:443" + req.RequestURI, http.StatusMovedPermanently)
+           http.Redirect(wr, req, "https://" + req.Host + req.URL.Path, http.StatusMovedPermanently)
        }))
     }()
 
