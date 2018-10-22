@@ -7,6 +7,7 @@ import (
     "fmt"
     "os"
     "github.com/gorilla/handlers"
+    "strings"
 )
 
 type pageData struct {
@@ -55,7 +56,8 @@ func main() {
     // start go routine to redirect every port 80 (http) to 443 (https)
     go func() {
        http.ListenAndServe(":80", http.HandlerFunc(func(wr http.ResponseWriter, req *http.Request) {
-           http.Redirect(wr, req, "https://" + req.Host + req.URL.Path, http.StatusMovedPermanently)
+           hostDomain := strings.Split(req.Host, ":")[0]
+           http.Redirect(wr, req, "https://" + hostDomain + ":443" + req.URL.Path, http.StatusTemporaryRedirect)
        }))
     }()
 
