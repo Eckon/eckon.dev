@@ -52,13 +52,22 @@ func main() {
         }
     }()
 
+    // start go routine to redirect every port 80 (http) to 443 (https)
+    go func() {
+       http.ListenAndServe(":80", http.HandlerFunc(func(wr http.ResponseWriter, req *http.Request) {
+           http.Redirect(wr, req, "https://IPAddr:443" + req.RequestURI, http.StatusMovedPermanently)
+       }))
+    }()
+
     s := http.Server{
-        Addr:    ":80",
+        Addr:    ":443",
         Handler: handlers.LoggingHandler(accessLog, r),
     }
 
     fmt.Println("Running")
-    if err = s.ListenAndServe(); err != nil {
+    err = s.ListenAndServeTLS("/etc/letsencrypt/live/eckon.rocks/fullchain.pem",
+        "/etc/letsencrypt/live/eckon.rocks/privkey.pem")
+    if err != nil {
         panic(err)
     }
 }
