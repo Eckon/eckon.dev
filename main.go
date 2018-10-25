@@ -82,6 +82,10 @@ func handleAllFunc(r *mux.Router) {
     handlePhaseFunc(r)
     // paths: /authentication (in authentication.go)
     handleAuthenticationFunc(r)
+    // paths: /calendar (in calendar.go)
+    handleCalendarFunc(r)
+    // paths: /release (in release.go)
+    handleReleaseFunc(r)
     // redirect on 404
     r.NotFoundHandler = http.HandlerFunc(indexHandler)
 }
@@ -111,6 +115,16 @@ func getHeaderInfo(req *http.Request) (h headerInfo) {
             {
                 "Phase",
                 "/phase",
+                "",
+            },
+            {
+                "Calendar",
+                "/calendar",
+                "",
+            },
+            {
+                "Release",
+                "/release",
                 "",
             },
             status,
