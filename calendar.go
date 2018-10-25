@@ -12,6 +12,7 @@ import (
 func handleCalendarFunc(r *mux.Router) {
     r.HandleFunc("/calendar", showCalendar).Methods("GET")
     r.HandleFunc("/calendar/ajax", ajaxCalendarAdd).Methods("POST")
+    r.HandleFunc("/calendar/ajax", ajaxCalendarDelete).Methods("DELETE")
 }
 
 func showCalendar(wr http.ResponseWriter, req* http.Request) {
@@ -30,23 +31,48 @@ func showCalendar(wr http.ResponseWriter, req* http.Request) {
 
 // get the old/new json data and append it
 func ajaxCalendarAdd(wr http.ResponseWriter, req* http.Request) {
-    // read the json body
+    var data []map[string]string
+    msg := translateCalendarRequest(req)
+    data, _ = readCalendarFile(data)
+    data = append(data, msg)
+
+    writeCalendarFile(data)
+}
+
+// get the to delete value, search and update the json accordingly
+func ajaxCalendarDelete(wr http.ResponseWriter, req* http.Request) {
+    var data []map[string]string
+    msg := translateCalendarRequest(req)
+    data, _ = readCalendarFile(data)
+
+    // instead of deleting -> just make a new map without the deleted data
+    var updatedData []map[string]string
+    for _, d := range data {
+        if !(d["date"] == msg["date"] && d["name"] == msg["name"]) {
+            updatedData = append(updatedData, d)
+        }
+    }
+
+    writeCalendarFile(updatedData)
+}
+
+// get the request data and translate it into a map
+func translateCalendarRequest(req* http.Request) map[string]string{
     b, _ := ioutil.ReadAll(req.Body)
     defer req.Body.Close()
     var msg map[string]string
     // get the post values
     json.Unmarshal(b, &msg)
 
-    // get the old json data and append it with the new post
-    var data []map[string]string
-    data, _ = readCalendarFile(data)
-    data = append(data, msg)
+    return msg
+}
 
-    // overwrite the file
+// overwrite the json data
+func writeCalendarFile(data []map[string]string) {
     a, err := json.Marshal(data)
     if err != nil {
-       fmt.Println("Error while writing File.", err.Error())
-       return
+        fmt.Println("Error while writing File.", err.Error())
+        return
     }
     ioutil.WriteFile("public/data/calendar/data.json", []byte(a), os.ModeAppend)
 }

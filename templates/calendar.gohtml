@@ -9,7 +9,7 @@
 <script>
     const calendar = $('#calendar').fullCalendar({
         locale: 'de',
-        // on click event -> append the json file and view
+        // on click free space -> append the json file and view
         dayClick: (date, _event, _view) => {
             const d = date._d.toJSON();
             const n = 'Eckon';
@@ -31,6 +31,25 @@
                     start: d
                 }, true);
             });
+        },
+        // on click event (used) -> delete clicked element from json and view
+        eventClick: (data, event, _view) => {
+            const d = data.start._d.toJSON();
+            const n = 'Eckon';
+
+            fetch('/calendar/ajax', {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    date: d,
+                    name: n
+                }),
+            }).then(() => {
+                event.currentTarget.remove()
+            })
         },
         events: [
             {{ range $index, $value := .Data}}
