@@ -4,10 +4,14 @@ import (
     "github.com/gorilla/mux"
     "net/http"
     "github.com/gorilla/sessions"
+    "io/ioutil"
+    "fmt"
+    "encoding/json"
 )
 
 // global variable so we can check it everywhere
 var store = sessions.NewCookieStore([]byte("LOGIN_KEY"))
+var sessionName = "ECKONID"
 
 func handleAuthenticationFunc(r *mux.Router) {
     r.HandleFunc("/authentication", handleLoginPage).Methods("GET")
@@ -17,8 +21,9 @@ func handleAuthenticationFunc(r *mux.Router) {
 func handleLoginPage(wr http.ResponseWriter, req *http.Request) {
     if checkLoginStatus(req) {
         // log out if we visit the login site again (while being logged in)
-        session, _:= store.Get(req, "session")
-        session.Values["status"] = "out"
+        session, _:= store.Get(req, sessionName)
+        session.Values["token"] = ""
+        session.Values["user_name"] = ""
         session.Save(req, wr)
         http.Redirect(wr, req, "/", http.StatusSeeOther)
     }
@@ -34,21 +39,65 @@ func handleLoginPage(wr http.ResponseWriter, req *http.Request) {
 
 func handleLoginAttempt(wr http.ResponseWriter, req *http.Request) {
     req.ParseForm()
-    session, _:= store.Get(req, "session")
+    session, _ := store.Get(req, sessionName)
 
-    // just for only one user (later maybe more with database and general checking)
-    if req.Form["name"][0] == "eckon" && req.Form["password"][0] == "123" {
-        // safe the status of the one user
-        session.Values["status"] = "in"
-        session.Save(req, wr)
+    var users []map[string]string
+    users, _ = readAuthenticationFile(users)
+
+    success := false
+    for _, user := range users {
+        if req.Form["name"][0] == user["user_name"] && req.Form["password"][0] == user["password_hash"] {
+            // safe the status of the one user
+            session.Values["token"] = user["token"]
+            session.Values["user_name"] = user["user_name"]
+            session.Save(req, wr)
+            success = true
+        }
+    }
+
+    // do it with this "ugly" way, because with 2 redirect the compiler will throw warnings (it wants to use 2 wr !)
+    if success {
         http.Redirect(wr, req, "/", http.StatusSeeOther)
     } else {
+        // no valid user -> redirect
         http.Redirect(wr, req, "/authentication", http.StatusSeeOther)
     }
 }
 
 func checkLoginStatus(req *http.Request) bool {
-    session, _ := store.Get(req, "session")
+    session, _ := store.Get(req, sessionName)
 
-    return session.Values["status"] == "in"
+    var users []map[string]string
+    users, _ = readAuthenticationFile(users)
+
+    // check if the username and the token are valid in the cookie
+    for _, user := range users {
+        if user["user_name"] == session.Values["user_name"] && user["token"] == session.Values["token"] {
+            return true
+        }
+    }
+
+    return false
+}
+
+func getCurrentUsername(req *http.Request) string {
+    session, _ := store.Get(req, sessionName)
+
+    return session.Values["user_name"].(string)
+}
+
+// read the json file and return a map, so we still have the keys:values format
+func readAuthenticationFile(data []map[string]string) ([]map[string]string, error) {
+    c, err := ioutil.ReadFile("public/data/authentication/data.json")
+    if err != nil {
+        fmt.Println("Error while reading File.", err.Error())
+        return data, err
+    }
+
+    err = json.Unmarshal(c, &data)
+    if err != nil {
+        fmt.Println("Error while reading File.", err.Error())
+    }
+
+    return data, nil
 }

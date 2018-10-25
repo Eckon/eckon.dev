@@ -1,3 +1,6 @@
 {{ template "header" .HeaderInfo }}
 <div>eckons website</div>
+{{ if .HeaderInfo.User }}
+    Hey {{ .HeaderInfo.User }}!
+{{ end }}
 {{ template "footer" }}

@@ -1,0 +1,12 @@
+[
+  {
+    "user_name": "eckon",
+    "password_hash": "123",
+    "token": "123456789"
+  },
+  {
+    "user_name": "denis",
+    "password_hash": "456",
+    "token": "987654321"
+  }
+]
