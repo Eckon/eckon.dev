@@ -83,6 +83,11 @@ func checkLoginStatus(req *http.Request) bool {
 func getCurrentUsername(req *http.Request) string {
     session, _ := store.Get(req, sessionName)
 
+    // for some reason golang live does not like to convert empty interface to sting -> return when empty
+    if session.Values["user_name"] == "" {
+        return ""
+    }
+
     return session.Values["user_name"].(string)
 }
 
