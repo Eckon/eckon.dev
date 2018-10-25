@@ -31,6 +31,10 @@ func showCalendar(wr http.ResponseWriter, req* http.Request) {
 
 // get the old/new json data and append it
 func ajaxCalendarAdd(wr http.ResponseWriter, req* http.Request) {
+    if !checkLoginStatus(req) {
+        return
+    }
+
     var data []map[string]string
     msg := translateCalendarRequest(req)
     data, _ = readCalendarFile(data)
@@ -41,6 +45,10 @@ func ajaxCalendarAdd(wr http.ResponseWriter, req* http.Request) {
 
 // get the to delete value, search and update the json accordingly
 func ajaxCalendarDelete(wr http.ResponseWriter, req* http.Request) {
+    if !checkLoginStatus(req) {
+        return
+    }
+
     var data []map[string]string
     msg := translateCalendarRequest(req)
     data, _ = readCalendarFile(data)

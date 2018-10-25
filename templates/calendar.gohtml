@@ -7,12 +7,13 @@
     <div id="calendar"></div>
 
 <script>
-    const calendar = $('#calendar').fullCalendar({
+    const name = '{{ .HeaderInfo.User }}';
+    $('#calendar').fullCalendar({
         locale: 'de',
+{{ if .HeaderInfo.User }}
         // on click free space -> append the json file and view
         dayClick: (date, _event, _view) => {
             const d = date._d.toJSON();
-            const n = 'Eckon';
 
             fetch('/calendar/ajax', {
                 method: 'POST',
@@ -21,21 +22,31 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    name: n,
+                    name: name,
                     date: d,
                 }),
             }).then(() => {
                 // for smoother handling -> add them in the view when success in backend
                 $('#calendar').fullCalendar('renderEvent', {
-                    title: n,
+                    title: name,
                     start: d
-                }, true);
+                });
             });
         },
         // on click event (used) -> delete clicked element from json and view
         eventClick: (data, event, _view) => {
+            // if other user -> stop the function
+            if (data.title !== name) {
+                return;
+            }
+
             const d = data.start._d.toJSON();
-            const n = 'Eckon';
+
+            // just for visual, make the event red and next click delete it
+            if (event.currentTarget.style.backgroundColor !== 'rgb(139, 0, 0)') {
+                event.currentTarget.style.backgroundColor = 'rgb(139, 0, 0)';
+                return;
+            }
 
             fetch('/calendar/ajax', {
                 method: 'DELETE',
@@ -44,13 +55,14 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    date: d,
-                    name: n
+                    name: name,
+                    date: d
                 }),
             }).then(() => {
-                event.currentTarget.remove()
+                $('#calendar').fullCalendar('removeEvents', data._id);
             })
         },
+{{ end }}
         events: [
             {{ range $index, $value := .Data}}
                 {
