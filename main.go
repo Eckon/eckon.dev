@@ -19,6 +19,7 @@ type headerInfo struct {
     Title      string
     Navigation []pathInfo
     OnHomePage bool
+    User       string
 }
 
 type pathInfo struct {
@@ -130,6 +131,7 @@ func getHeaderInfo(req *http.Request) (h headerInfo) {
             status,
         },
         OnHomePage: false,
+        User: getCurrentUsername(req),
     }
 
     for e := range h.Navigation {
