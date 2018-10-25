@@ -83,12 +83,11 @@ func checkLoginStatus(req *http.Request) bool {
 func getCurrentUsername(req *http.Request) string {
     session, _ := store.Get(req, sessionName)
 
-    // for some reason golang live does not like to convert empty interface to sting -> return when empty
-    if session.Values["user_name"] == "" {
-        return ""
+    if name, ok := session.Values["user_name"].(string); ok {
+        return name
     }
 
-    return session.Values["user_name"].(string)
+    return ""
 }
 
 // read the json file and return a map, so we still have the keys:values format
