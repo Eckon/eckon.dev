@@ -83,6 +83,7 @@ func checkLoginStatus(req *http.Request) bool {
 func getCurrentUsername(req *http.Request) string {
     session, _ := store.Get(req, sessionName)
 
+    // check if the conversion can be used - if not return an empty string (preventing error)
     if name, ok := session.Values["user_name"].(string); ok {
         return name
     }
