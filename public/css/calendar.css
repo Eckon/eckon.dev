@@ -1,0 +1,11 @@
+input {
+    padding: 10px 15px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    display: block;
+}
+
+/* hide the time in front of the event (the "12a" before the name) */
+.fc-time{
+    display : none;
+}
