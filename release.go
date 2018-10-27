@@ -4,7 +4,6 @@ import (
     "github.com/gorilla/mux"
     "net/http"
     "encoding/json"
-    "fmt"
 )
 
 type JsonData struct {
@@ -20,14 +19,16 @@ func releaseHandler(wr http.ResponseWriter, req *http.Request) {
         HeaderInfo: getHeaderInfo(req),
     }
 
-    jsonData := new(JsonData)
-    // id from normal search https://www.discogs.com/de/artist/40027-Disturbed
-    url := "https://api.discogs.com/artists/40027/releases"
-    // id from main_release
-    // https://api.discogs.com/releases/12678059
-    // http://jsonviewer.stack.hu/
-    requestApi(url, jsonData)
-    fmt.Println(jsonData.Releases)
+    if checkLoginStatus(req) && getCurrentUsername(req) == "eckon" {
+        jsonData := new(JsonData)
+        // id from normal search https://www.discogs.com/de/artist/40027-Disturbed
+        url := "https://api.discogs.com/artists/40027/releases"
+        // id from main_release
+        // https://api.discogs.com/releases/12678059
+        // http://jsonviewer.stack.hu/
+        requestApi(url, jsonData)
+        pageData.Data = jsonData.Releases
+    }
 
     if err := tpl.ExecuteTemplate(wr, "release.gohtml", pageData); err != nil {
         http.Error(wr, err.Error(), http.StatusInternalServerError)
