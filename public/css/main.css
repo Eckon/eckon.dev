@@ -17,6 +17,7 @@ body {
     color: #000;
     background: #f5f5f5;
     font-family: "Open Sans", sans-serif, Verdana, Geneva;
+    overflow-y: scroll;
 }
 
 /* general overlay to prevent further actions on the main page */
