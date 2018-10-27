@@ -1,7 +1,12 @@
 [
   {
     "user_name": "eckon",
-    "password_hash": "123",
+    "password_hash": "foobar",
     "token": "123456789"
+  },
+  {
+    "user_name": "gamedev",
+    "password_hash": "123",
+    "token": "987654321"
   }
 ]

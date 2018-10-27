@@ -79,7 +79,8 @@ func phaseHandler(wr http.ResponseWriter, req *http.Request) {
     game, _ = readFile(game.GameName, game)
     // Wird ausgeführt, falls ein Post vorliegt
     // check if the user is logged in
-    if checkLoginStatus(req) && req.Method == http.MethodPost {
+    // too lazy for permissions, so for the time being just check if the user name is correct
+    if checkLoginStatus(req) && getCurrentUsername(req) == "eckon" && req.Method == http.MethodPost {
         // Muss ausgeführt werden um die Post-Daten zu bekommen
         err := req.ParseForm()
         if err != nil {
@@ -118,7 +119,7 @@ func phaseHandler(wr http.ResponseWriter, req *http.Request) {
 
 func resetHandler(wr http.ResponseWriter, req *http.Request)  {
     // check if the user is logged in
-    if checkLoginStatus(req) {
+    if checkLoginStatus(req) && getCurrentUsername(req) == "eckon"  {
         // Erhöhung der Spielnummer, und diese dem Template für das neue Spiel übergeben
         game.GameName = increaseGameNumber()
         gameDataTemplate.GameName = game.GameName

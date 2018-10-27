@@ -44,24 +44,19 @@ func handleLoginAttempt(wr http.ResponseWriter, req *http.Request) {
     var users []map[string]string
     users, _ = readAuthenticationFile(users)
 
-    success := false
     for _, user := range users {
         if req.Form["name"][0] == user["user_name"] && req.Form["password"][0] == user["password_hash"] {
             // safe the status of the one user
             session.Values["token"] = user["token"]
             session.Values["user_name"] = user["user_name"]
             session.Save(req, wr)
-            success = true
+            http.Redirect(wr, req, "/", http.StatusSeeOther)
+            return
         }
     }
 
-    // do it with this "ugly" way, because with 2 redirect the compiler will throw warnings (it wants to use 2 wr !)
-    if success {
-        http.Redirect(wr, req, "/", http.StatusSeeOther)
-    } else {
-        // no valid user -> redirect
-        http.Redirect(wr, req, "/authentication", http.StatusSeeOther)
-    }
+    // no valid user -> redirect
+    http.Redirect(wr, req, "/authentication", http.StatusSeeOther)
 }
 
 func checkLoginStatus(req *http.Request) bool {
