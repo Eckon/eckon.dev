@@ -1,11 +1,8 @@
 # eckon.dev
 ## Information to setup the server
 
-> build server  
-`$ sudo go build *.go`
-
-> run server  
-`$ sudo ./main`
+> build and start server
+`$ go build -o bin/server && sudo ./bin/server`
 
 > open new screen  
 `$ screen -S "name"`
@@ -27,3 +24,11 @@
 
 > certificate (certbot)
 `$ sudo certbot certonly --standalone -d eckon.dev -d www.eckon.dev`
+
+> using the new modules in go
+`$ go mod init`
+`$ go mod tidy`
+
+> using modules to import different packages from local
+`replace eckon.dev/src => ./src`
+`require (eckon.dev/src v0.0.0)`
