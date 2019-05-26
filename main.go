@@ -114,7 +114,7 @@ func getHeaderInfo(req *http.Request) (h HeaderInfo) {
 
 	// nav-bar information
 	h = HeaderInfo{
-		Title: "eckon.rocks",
+		Title: "eckon.dev",
 		Navigation: []PathInfo{
 			{
 				"Phase",
