@@ -20,6 +20,8 @@ func CreateRouter() *mux.Router {
 			return
 		}
 	}).Methods("GET")
+	template.HandleAuthenticationFunc(router)
+	template.HandlePhaseFunc(router)
 
 	router.NotFoundHandler = http.HandlerFunc(func(wr http.ResponseWriter, req *http.Request) {
 		pageData := template.PageData{
