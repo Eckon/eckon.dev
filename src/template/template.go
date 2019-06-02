@@ -5,11 +5,13 @@ import (
 	"net/http"
 )
 
+// PageData : A struct with Header and general data
 type PageData struct {
 	HeaderInfo HeaderInfo
 	Data       interface{}
 }
 
+// HeaderInfo : A struct with information about the header
 type HeaderInfo struct {
 	Title      string
 	Navigation []PathInfo
@@ -17,12 +19,14 @@ type HeaderInfo struct {
 	User       string
 }
 
+// PathInfo : A struct with information about the path
 type PathInfo struct {
 	Title string
 	Path  string
 	Class string
 }
 
+// Template : a public tempalte with all views
 var Template *template.Template
 
 // Initialize : Initializes the tempalte for further use
@@ -34,6 +38,9 @@ func Initialize() {
 func GetHeaderInfo(req *http.Request) (h HeaderInfo) {
 	// update the title if the user is already logged in
 	status := PathInfo{"Login", "/authentication", "authentication"}
+	if checkLoginStatus(req) {
+		status.Title = "Logout"
+	}
 
 	// nav-bar information
 	h = HeaderInfo{
@@ -44,19 +51,10 @@ func GetHeaderInfo(req *http.Request) (h HeaderInfo) {
 				"/phase",
 				"",
 			},
-			{
-				"Calendar",
-				"/calendar",
-				"",
-			},
-			{
-				"Release",
-				"/release",
-				"",
-			},
 			status,
 		},
 		OnHomePage: false,
+		User:       getCurrentUsername(req),
 	}
 
 	for e := range h.Navigation {
