@@ -7,5 +7,6 @@ import (
 
 func main() {
 	template.Initialize()
+	server := server.CreateServer()
 	server.Start()
 }
